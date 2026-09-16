@@ -2,6 +2,7 @@ using MaintenanceRequests.Application.Interfaces;
 using MaintenanceRequests.Application.Services;
 using MaintenanceRequests.Domain.Entities;
 using MaintenanceRequests.Infrastructure.Data;
+using MaintenanceRequests.Infrastructure.Identity;
 using MaintenanceRequests.Infrastructure.Repositories;
 using MaintenanceRequests.Web.Middleware;
 using Microsoft.AspNetCore.Identity;
@@ -31,6 +32,11 @@ builder.Services.AddScoped<IRepairRequestService, RepairRequestService>();
 builder.Services.AddScoped<IRepairCategoryRepository, RepairCategoryRepository>();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    await IdentitySeeder.SeedAsync(scope.ServiceProvider);
+}
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
