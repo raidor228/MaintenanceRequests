@@ -41,4 +41,76 @@ public class RepairRequestsController : ControllerBase
         var request = await _service.CreateAsync(dto, clientId);
         return Ok(request);
     }
+    
+    [HttpPost("{id:int}/submit")]
+    public async Task<IActionResult> Submit(int id, ChangeRequestStatusDto dto)
+    {
+        const string userId = "test-client";
+        await _service.SubmitForApprovalAsync(id, userId, dto.Comment);
+        return Ok();
+    }
+    
+    [HttpPost("{id:int}/approve")]
+    public async Task<IActionResult> Approve(int id, ChangeRequestStatusDto dto)
+    {
+        const string userId = "test-admin";
+        await _service.ApproveAsync(id, userId, dto.Comment);
+        return Ok();
+    }
+    
+    [HttpPost("{id:int}/reject")]
+    public async Task<IActionResult> Reject(int id, ChangeRequestStatusDto dto)
+    {
+        const string userId = "test-admin";
+        await _service.RejectAsync(id, userId, dto.Comment);
+        return Ok();
+    }
+    
+    [HttpPost("{id:int}/assign")]
+    public async Task<IActionResult> Assign(int id, AssignRepairRequestDto dto)
+    {
+        const string userId = "test-admin";
+        await _service.AssignAsync(id, dto.WorkerId, userId, dto.Comment);
+        return Ok();
+    }
+    
+    [HttpPost("{id:int}/start")]
+    public async Task<IActionResult> Start(int id, ChangeRequestStatusDto dto)
+    {
+        const string userId = "test-worker";
+        await _service.StartAsync(id, userId, dto.Comment);
+        return Ok();
+    }
+    
+    [HttpPost("{id:int}/waiting")]
+    public async Task<IActionResult> Waiting(int id, ChangeRequestStatusDto dto)
+    {
+        const string userId = "test-worker";
+        await _service.SetWaitingAsync(id, userId, dto.Comment);
+        return Ok();
+    }
+    
+    [HttpPost("{id:int}/complete")]
+    public async Task<IActionResult> Complete(int id, ChangeRequestStatusDto dto)
+    {
+        const string userId = "test-worker";
+        await _service.CompleteAsync(id, userId, dto.Comment);
+        return Ok();
+    }
+    
+    [HttpPost("{id:int}/close")]
+    public async Task<IActionResult> Close(int id, ChangeRequestStatusDto dto)
+    {
+        const string userId = "test-admin";
+        await _service.CloseAsync(id, userId, dto.Comment);
+        return Ok();
+    }
+    
+    [HttpPost("{id:int}/cancel")]
+    public async Task<IActionResult> Cancel(int id, ChangeRequestStatusDto dto)
+    {
+        const string userId = "test-client";
+        await _service.CancelAsync(id, userId, dto.Comment);
+        return Ok();
+    }
 }

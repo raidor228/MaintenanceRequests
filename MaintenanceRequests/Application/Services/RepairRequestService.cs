@@ -42,4 +42,78 @@ public class RepairRequestService : IRepairRequestService
     {
         return await _repository.GetAllAsync();
     }
+    
+    public async Task SubmitForApprovalAsync(int id, string userId, string? comment)
+    {
+        var request = await GetRequiredRequestAsync(id);
+        request.SubmitForApproval(userId, comment);
+        await _repository.SaveChangesAsync();
+    }
+    
+    public async Task ApproveAsync(int id, string userId, string? comment)
+    {
+        var request = await GetRequiredRequestAsync(id);
+        request.Approve(userId, comment);
+        await _repository.SaveChangesAsync();
+    }
+    
+    public async Task RejectAsync(int id, string userId, string? comment)
+    {
+        var request = await GetRequiredRequestAsync(id);
+        request.Reject(userId, comment);
+        await _repository.SaveChangesAsync();
+    }
+    
+    public async Task AssignAsync(int id, string workerId, string userId, string? comment)
+    {
+        var request = await GetRequiredRequestAsync(id);
+        request.Assign(workerId, userId, comment);
+        await _repository.SaveChangesAsync();
+    }
+    
+    public async Task StartAsync(int id, string userId, string? comment)
+    {
+        var request = await GetRequiredRequestAsync(id);
+        request.Start(userId, comment);
+        await _repository.SaveChangesAsync();
+    }
+    
+    public async Task SetWaitingAsync(int id, string userId, string? comment)
+    {
+        var request = await GetRequiredRequestAsync(id);
+        request.SetWaiting(userId, comment);
+        await _repository.SaveChangesAsync();
+    }
+    
+    public async Task CompleteAsync(int id, string userId, string? comment)
+    {
+        var request = await GetRequiredRequestAsync(id);
+        request.Complete(userId, comment);
+        await _repository.SaveChangesAsync();
+    }
+    
+    public async Task CloseAsync(int id, string userId, string? comment)
+    {
+        var request = await GetRequiredRequestAsync(id);
+        request.Close(userId, comment);
+        await _repository.SaveChangesAsync();
+    }
+    
+    public async Task CancelAsync(int id, string userId, string? comment)
+    {
+        var request = await GetRequiredRequestAsync(id);
+        request.Cancel(userId, comment);
+        await _repository.SaveChangesAsync();
+    }
+    
+    private async Task<RepairRequest> GetRequiredRequestAsync(int id)
+    {
+        var request = await _repository.GetByIdAsync(id);
+        if (request is null)
+        {
+            throw new KeyNotFoundException($"Заявка с идентификатором {id} не найдена.");
+        }
+
+        return request;
+    }
 }
