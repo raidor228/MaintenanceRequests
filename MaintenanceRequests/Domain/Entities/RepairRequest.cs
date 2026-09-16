@@ -204,16 +204,7 @@ public class RepairRequest
     private void ChangeStatus(RequestStatus newStatus, string changedByUserId, string? comment = null)
     {
         var oldStatus = Status;
-
         Status = newStatus;
-
-        StatusHistory.Add(new RequestStatusHistory
-        {
-            OldStatus = oldStatus,
-            NewStatus = newStatus,
-            ChangedByUserId = changedByUserId,
-            ChangedAt = DateTime.UtcNow,
-            Comment = comment
-        });
+        StatusHistory.Add(new RequestStatusHistory(Id, oldStatus, newStatus, changedByUserId, comment));
     }
 }

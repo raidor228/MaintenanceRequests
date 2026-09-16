@@ -4,11 +4,22 @@ namespace MaintenanceRequests.Domain.Entities;
 
 public class RequestStatusHistory
 {
-    public int Id { get; set; }
-    public int RequestId { get; set; }
-    public RequestStatus OldStatus { get; set; }
-    public RequestStatus NewStatus { get; set; }
-    public string ChangedByUserId { get; set; } = string.Empty;
-    public DateTime ChangedAt { get; set; }
-    public string? Comment { get; set; }
+    public int Id { get; private set; }
+    public int RequestId { get; private set; }
+    public RequestStatus OldStatus { get; private set; }
+    public RequestStatus NewStatus { get; private set; }
+    public string ChangedByUserId { get; private set; }
+    public DateTime ChangedAt { get; private set; }
+    public string? Comment { get; private set; }
+
+    public RequestStatusHistory(int requestId, RequestStatus oldStatus, RequestStatus newStatus,
+        string changedByUserId, string? comment)
+    {
+        RequestId = requestId;
+        OldStatus = oldStatus;
+        NewStatus = newStatus;
+        ChangedByUserId = changedByUserId;
+        Comment = comment;
+        ChangedAt = DateTime.UtcNow;
+    }
 }
