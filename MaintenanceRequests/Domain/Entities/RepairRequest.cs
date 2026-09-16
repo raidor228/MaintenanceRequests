@@ -18,17 +18,13 @@ public class RepairRequest
     public ICollection<RequestComment> Comments { get; private set; } = new List<RequestComment>();
     public ICollection<RequestStatusHistory> StatusHistory { get; private set; } = new List<RequestStatusHistory>();
     
+    private const int MaxTitleLength = 100;
+    private const int MaxDescriptionLength = 2000;
+    
     public RepairRequest(string title, string description, RequestPriority priority, string clientId, int categoryId)
     {
-        if (string.IsNullOrWhiteSpace(title))
-        {
-            throw new ArgumentException("Название заявки не может быть пустым.", nameof(title));
-        }
-
-        if (string.IsNullOrWhiteSpace(description))
-        {
-            throw new ArgumentException("Описание заявки не может быть пустым.", nameof(description));
-        }
+        ValidateTitle(title);
+        ValidateDescription(description);
 
         if (string.IsNullOrWhiteSpace(clientId))
         {
@@ -140,6 +136,54 @@ public class RepairRequest
         }
 
         ChangeStatus(RequestStatus.Cancelled, changedByUserId, comment);
+    }
+    
+    private static void ValidateTitle(string title)
+    {
+        if (string.IsNullOrWhiteSpace(title))
+        {
+            throw new ArgumentException("Название заявки не может быть пустым.", nameof(title));
+        }
+
+        if (title.Length > MaxTitleLength)
+        {
+            throw new ArgumentException(
+                $"Название заявки не может быть длиннее {MaxTitleLength} символов.", nameof(title));
+        }
+    }
+    
+    private static void ValidateDescription(string description)
+    {
+        if (string.IsNullOrWhiteSpace(description))
+        {
+            throw new ArgumentException("Описание заявки не может быть пустым.", nameof(description));
+        }
+
+        if (description.Length > MaxDescriptionLength)
+        {
+            throw new ArgumentException(
+                $"Описание заявки не может быть длиннее {MaxDescriptionLength} символов.", nameof(description));
+        }
+    }
+    
+    public void UpdateDetails(string title, string description, RequestPriority priority)
+    {
+        if (Status == RequestStatus.Closed)
+        {
+            throw new InvalidOperationException("Закрытую заявку нельзя изменить.");
+        }
+
+        if (Status == RequestStatus.Cancelled)
+        {
+            throw new InvalidOperationException("Отменённую заявку нельзя изменить.");
+        }
+
+        ValidateTitle(title);
+        ValidateDescription(description);
+
+        Title = title;
+        Description = description;
+        Priority = priority;
     }
     
     private void ChangeStatus(RequestStatus newStatus, string changedByUserId, string? comment = null)
