@@ -23,6 +23,9 @@ builder.Services
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddSignInManager();
 
+builder.Services.AddAuthentication(IdentityConstants.ApplicationScheme).AddIdentityCookies();
+builder.Services.AddAuthorization();
+
 builder.Services.AddScoped<IRepairRequestRepository, RepairRequestRepository>();
 builder.Services.AddScoped<IRepairRequestService, RepairRequestService>();
 builder.Services.AddScoped<IRepairCategoryRepository, RepairCategoryRepository>();
@@ -33,7 +36,12 @@ app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
+
 app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();
