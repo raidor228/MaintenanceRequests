@@ -1,5 +1,3 @@
-using MaintenanceRequests.Domain.Enums;
-
 namespace MaintenanceRequests.Domain.Entities;
 
 public class RequestComment
@@ -36,5 +34,10 @@ public class RequestComment
         UserId = userId;
         Text = text;
         CreatedAt = DateTime.UtcNow;
+    }
+
+    private RequestComment()
+    {
+        
     }
 }

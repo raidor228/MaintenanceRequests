@@ -40,6 +40,11 @@ public class RepairRequest
         Status = RequestStatus.New;
         CreatedAt = DateTime.UtcNow;
     }
+
+    private RepairRequest()
+    {
+        
+    }
     
     public void SubmitForApproval(string changedByUserId, string? comment = null)
     {

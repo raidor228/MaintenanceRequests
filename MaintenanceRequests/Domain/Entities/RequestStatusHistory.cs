@@ -22,4 +22,9 @@ public class RequestStatusHistory
         Comment = comment;
         ChangedAt = DateTime.UtcNow;
     }
+
+    private RequestStatusHistory()
+    {
+        
+    }
 }
