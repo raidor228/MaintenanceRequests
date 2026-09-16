@@ -2,72 +2,104 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Создание заявки</title>
+
     <link rel="stylesheet" href="css/site.css">
 </head>
-
 <body>
 
-<h1>Создание заявки</h1>
+<header>
+    <a href="/index.html">← Назад к заявкам</a>
+</header>
 
-<form id="createRequestForm">
+<main>
 
-    <div>
-        <label for="title">
-            Название
-        </label>
+    <h1>Создание заявки</h1>
 
-        <input
-                id="title"
-                name="title"
-                type="text"
-                required>
-    </div>
+    <form id="createRequestForm">
 
-    <div>
-        <label for="description">
-            Описание
-        </label>
+        <div>
+            <label for="title">
+                Название
+            </label>
 
-        <textarea
-                id="description"
-                name="description"
-                required>
-            </textarea>
-    </div>
+            <input
+                    id="title"
+                    name="title"
+                    type="text"
+                    required>
+        </div>
 
-    <div>
-        <label for="priority">
-            Приоритет
-        </label>
+        <div>
+            <label for="description">
+                Описание
+            </label>
 
-        <select id="priority" name="priority">
-            <option value="0">Низкий</option>
-            <option value="1">Обычный</option>
-            <option value="2">Высокий</option>
-            <option value="3">Критический</option>
-        </select>
-    </div>
+            <textarea
+                    id="description"
+                    name="description"
+                    required>
+                </textarea>
+        </div>
 
-    <div>
-        <label for="category">
-            Категория
-        </label>
+        <div>
+            <label for="priority">
+                Приоритет
+            </label>
 
-        <select id="category" name="categoryId" required>
-            <option value="">
-                Выберите категорию
-            </option>
-        </select>
-    </div>
+            <select
+                    id="priority"
+                    name="priority">
 
-    <button type="submit">
-        Создать заявку
-    </button>
+                <option value="0">
+                    Низкий
+                </option>
 
-</form>
+                <option value="1">
+                    Обычный
+                </option>
 
-<script src="js/requests.js"></script>
+                <option value="2">
+                    Высокий
+                </option>
+
+                <option value="3">
+                    Критический
+                </option>
+
+            </select>
+        </div>
+
+        <div>
+            <label for="category">
+                Категория
+            </label>
+
+            <select
+                    id="category"
+                    name="categoryId"
+                    required>
+
+                <option value="">
+                    Выберите категорию
+                </option>
+
+            </select>
+        </div>
+
+        <button type="submit">
+            Создать заявку
+        </button>
+
+    </form>
+
+    <p id="errorMessage"></p>
+
+</main>
+
+<script src="js/create-request.js"></script>
 
 </body>
 </html>
