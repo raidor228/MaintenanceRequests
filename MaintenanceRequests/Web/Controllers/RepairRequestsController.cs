@@ -11,10 +11,12 @@ namespace MaintenanceRequests.Web.Controllers;
 public class RepairRequestsController : ControllerBase
 {
     private readonly IRepairRequestService _service;
+    private readonly IUserService _userService;
     
-    public RepairRequestsController(IRepairRequestService service)
+    public RepairRequestsController(IRepairRequestService service, IUserService userService)
     {
         _service = service;
+        _userService = userService;
     }
 
     [Authorize(Roles = "Client")]
@@ -163,7 +165,16 @@ public class RepairRequestsController : ControllerBase
         {
             return Unauthorized();
         }
-        
+
+        var workerExists = await _userService.IsInRoleAsync(dto.WorkerId, "Worker");
+        if (!workerExists)
+        {
+            return BadRequest(new
+            {
+                error = "Указанный пользователь не является работником."
+            });
+        }
+
         await _service.AssignAsync(id, dto.WorkerId, userId, dto.Comment);
         return Ok();
     }
