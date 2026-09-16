@@ -1,0 +1,24 @@
+# Build
+**/bin/
+**/obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# JetBrains Rider
+.idea/
+
+# SQLite
+**/*.db
+**/*.db-shm
+**/*.db-wal
+
+# Logs
+**/*.log
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
