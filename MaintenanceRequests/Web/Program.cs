@@ -30,6 +30,7 @@ builder.Services.AddAuthorization();
 builder.Services.AddScoped<IRepairRequestRepository, RepairRequestRepository>();
 builder.Services.AddScoped<IRepairRequestService, RepairRequestService>();
 builder.Services.AddScoped<IRepairCategoryRepository, RepairCategoryRepository>();
+builder.Services.AddScoped<IUserService, IdentityUserService>();
 
 var app = builder.Build();
 
