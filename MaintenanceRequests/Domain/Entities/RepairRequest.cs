@@ -208,8 +208,13 @@ public class RepairRequest
     
     private void ChangeStatus(RequestStatus newStatus, string changedByUserId, string? comment = null)
     {
+        if (string.IsNullOrWhiteSpace(changedByUserId))
+        {
+            throw new ArgumentException("Необходимо указать пользователя.", nameof(changedByUserId));
+        }
+
         var oldStatus = Status;
         Status = newStatus;
-        StatusHistory.Add(new RequestStatusHistory(Id, oldStatus, newStatus, changedByUserId, comment));
+        StatusHistory.Add(new RequestStatusHistory(oldStatus, newStatus, changedByUserId, comment));
     }
 }

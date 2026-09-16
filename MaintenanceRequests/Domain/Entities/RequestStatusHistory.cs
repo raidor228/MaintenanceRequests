@@ -12,19 +12,23 @@ public class RequestStatusHistory
     public DateTime ChangedAt { get; private set; }
     public string? Comment { get; private set; }
 
-    public RequestStatusHistory(int requestId, RequestStatus oldStatus, RequestStatus newStatus,
-        string changedByUserId, string? comment)
+    private RequestStatusHistory()
     {
-        RequestId = requestId;
+        ChangedByUserId = string.Empty;
+    }
+
+    public RequestStatusHistory(RequestStatus oldStatus, RequestStatus newStatus, 
+        string changedByUserId, string? comment = null)
+    {
+        if (string.IsNullOrWhiteSpace(changedByUserId))
+        {
+            throw new ArgumentException("Необходимо указать пользователя.", nameof(changedByUserId));
+        }
+
         OldStatus = oldStatus;
         NewStatus = newStatus;
         ChangedByUserId = changedByUserId;
         Comment = comment;
         ChangedAt = DateTime.UtcNow;
-    }
-
-    private RequestStatusHistory()
-    {
-        
     }
 }
