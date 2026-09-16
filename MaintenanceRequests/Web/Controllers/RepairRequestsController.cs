@@ -22,6 +22,18 @@ public class RepairRequestsController : ControllerBase
         return Ok(requests);
     }
     
+    [HttpGet("{id:int}")]
+    public async Task<IActionResult> GetById(int id)
+    {
+        var request = await _service.GetByIdAsync(id);
+        if (request is null)
+        {
+            return NotFound();
+        }
+        
+        return Ok(request);
+    }
+    
     [HttpPost]
     public async Task<IActionResult> Create(CreateRepairRequestDto dto)
     {
