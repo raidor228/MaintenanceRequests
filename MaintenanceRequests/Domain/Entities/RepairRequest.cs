@@ -186,6 +186,21 @@ public class RepairRequest
         Priority = priority;
     }
     
+    public void AddComment(string userId, string text)
+    {
+        if (Status == RequestStatus.Closed)
+        {
+            throw new InvalidOperationException("В закрытую заявку нельзя добавлять комментарии.");
+        }
+
+        if (Status == RequestStatus.Cancelled)
+        {
+            throw new InvalidOperationException("В отменённую заявку нельзя добавлять комментарии.");
+        }
+
+        Comments.Add(new RequestComment(Id, userId, text));
+    }
+    
     private void ChangeStatus(RequestStatus newStatus, string changedByUserId, string? comment = null)
     {
         var oldStatus = Status;
