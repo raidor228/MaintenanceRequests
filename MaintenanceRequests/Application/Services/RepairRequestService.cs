@@ -38,6 +38,11 @@ public class RepairRequestService : IRepairRequestService
         return await _repository.GetByClientIdAsync(clientId);
     }
 
+    public async Task<List<RepairRequest>> GetByWorkerIdAsync(string workerId)
+    {
+        return await _repository.GetByWorkerIdAsync(workerId);
+    }
+    
     public async Task<List<RepairRequest>> GetAllAsync()
     {
         return await _repository.GetAllAsync();

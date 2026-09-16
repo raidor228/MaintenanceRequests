@@ -8,6 +8,7 @@ public interface IRepairRequestService
     Task<RepairRequest> CreateAsync(CreateRepairRequestDto dto, string clientId);
     Task<RepairRequest?> GetByIdAsync(int id);
     Task<List<RepairRequest>> GetByClientIdAsync(string clientId);
+    Task<List<RepairRequest>> GetByWorkerIdAsync(string workerId);
     Task<List<RepairRequest>> GetAllAsync();
 
     Task SubmitForApprovalAsync(int id, string userId, string? comment);

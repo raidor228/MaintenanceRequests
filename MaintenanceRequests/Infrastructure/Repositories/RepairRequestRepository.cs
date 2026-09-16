@@ -30,6 +30,14 @@ public class RepairRequestRepository : IRepairRequestRepository
             .Where(x => x.ClientId == clientId)
             .ToListAsync();
     }
+    
+    public async Task<List<RepairRequest>> GetByWorkerIdAsync(string workerId)
+    {
+        return await _dbContext.RepairRequests
+            .Include(x => x.Category)
+            .Where(x => x.WorkerId == workerId)
+            .ToListAsync();
+    }
 
     public async Task<List<RepairRequest>> GetAllAsync()
     {
