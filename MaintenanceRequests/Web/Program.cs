@@ -35,7 +35,7 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    await IdentitySeeder.SeedAsync(scope.ServiceProvider);
+    await IdentitySeeder.SeedAsync(scope.ServiceProvider, builder.Configuration);
 }
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
