@@ -17,21 +17,4 @@
         </PackageReference>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.12" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Application\DTOs\" />
-      <Folder Include="Application\Interfaces\" />
-      <Folder Include="Application\Services\" />
-      <Folder Include="Domain\Entities\" />
-      <Folder Include="Domain\Enums\" />
-      <Folder Include="Domain\Interfaces\" />
-      <Folder Include="Infrastructure\Data\" />
-      <Folder Include="Infrastructure\Identity\" />
-      <Folder Include="Infrastructure\Repositories\" />
-      <Folder Include="Web\Controllers\" />
-      <Folder Include="Web\Middleware\" />
-      <Folder Include="Web\Views\" />
-      <Folder Include="Web\wwwroot\" />
-    </ItemGroup>
-
 </Project>
