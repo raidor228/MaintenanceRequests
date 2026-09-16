@@ -2,6 +2,7 @@ using MaintenanceRequests.Application.Interfaces;
 using MaintenanceRequests.Application.Services;
 using MaintenanceRequests.Infrastructure.Data;
 using MaintenanceRequests.Infrastructure.Repositories;
+using MaintenanceRequests.Web.Middleware;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(new WebApplicationOptions()
@@ -20,6 +21,8 @@ builder.Services.AddScoped<IRepairRequestService, RepairRequestService>();
 builder.Services.AddScoped<IRepairCategoryRepository, RepairCategoryRepository>();
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
